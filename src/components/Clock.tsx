@@ -1,6 +1,5 @@
 "use client";
-
-import { div } from "three/tsl";
+import { useState, useEffect } from "react";
 
 export default function Clock() {
     const today = new Date().toLocaleDateString("en-US", {
@@ -10,16 +9,17 @@ export default function Clock() {
   day: "numeric",
 });
 
-const time = new Date().toLocaleTimeString("en-US", {
-  hour: "2-digit",
-  minute: "2-digit",
-  second: "2-digit",
-});
+ const [now, setNow] = useState<Date>(new Date());
+
+  useEffect(() => {
+    const interval = setInterval(() => setNow(new Date()), 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <div>
+    <div className="align-right">
       <div>{today}</div>
-      <div>{time}</div>
+      <div>{now.toLocaleTimeString()}</div>
     </div>
   );
 }

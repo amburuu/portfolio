@@ -10,19 +10,18 @@ export default async function Home() {
   const user = session?.user;
 
   return (
-    <main className="">
-      <div className="">
+    <main className="flex-col text-center justify-center">
+      <div className="text-right">
         <Clock />
       </div>
       <div className="">
-        <Profile />
+        <Profile user={user} />
       </div>
       <div className="">
         chaos
       </div>
-      <div className="">
+      <div className="flex justify-center">
         <StartButton />
-      </div>
       {user ? (
         <div className="">
           <LogoutButton />
@@ -32,6 +31,7 @@ export default async function Home() {
           <LoginButton />
         </div>
       )}
+      </div>
     </main>
   );
 }

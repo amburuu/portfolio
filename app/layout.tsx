@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={inter.className}
+      className={`${inter.className} h-full antialiased`}
     >
       <head>
         <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
@@ -30,7 +30,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="Chaos" />
         <link rel="manifest" href="/site.webmanifest" />
       </head>
-      <body className="min-h-full flex flex-col homepage"><Auth0Provider>{children}</Auth0Provider></body>
+      <body className="homepage"><Auth0Provider>{children}</Auth0Provider></body>
     </html>
   );
 }

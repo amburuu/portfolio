@@ -13,16 +13,16 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
-    --foreground: #ededed;
+    --foreground: #861a1a;
   }
 }
 
 body {
-  color: var(--foreground);
+  color: red;
 }
 
 .homepage {
   background-image: url("../public/windows_xp.jpg");
-  background-size:cover;
   background-repeat: no-repeat;
+  background-position: center;
 }
