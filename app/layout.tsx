@@ -1,22 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter } from "next/font/google";
 import { Auth0Provider } from "@auth0/nextjs-auth0/client";
 import "./globals.css";
-
+import { Inter } from 'next/font/google'
+ 
 const inter = Inter({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-});
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+  subsets: ['latin'],
+})
 
 export const metadata: Metadata = {
   title: "chaos",
@@ -31,7 +20,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={inter.className}
     >
       <head>
         <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
@@ -41,7 +30,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="Chaos" />
         <link rel="manifest" href="/site.webmanifest" />
       </head>
-      <body className="min-h-full flex flex-col"><Auth0Provider>{children}</Auth0Provider></body>
+      <body className="min-h-full flex flex-col homepage"><Auth0Provider>{children}</Auth0Provider></body>
     </html>
   );
 }

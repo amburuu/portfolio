@@ -6,7 +6,7 @@ export default function LogoutButton() {
       href="/auth/logout"
       className=""
     >
-      Sign out
+      Logout
     </a>
   );
 }

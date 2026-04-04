@@ -17,12 +17,18 @@ export default function Profile() {
     );
   }
 
-  if (!user) return null;
+  if (!user) return (
+    <div className="">
+      <span className="">
+        hello, unknown user
+      </span>
+    </div>
+  );
 
   return (
     <div className="">
       <span className="">
-        Hello, {user.name}
+        hello, {user.name}
       </span>
     </div>
   );

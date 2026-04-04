@@ -6,7 +6,7 @@ export default function LoginButton() {
       href="/auth/login"
       className=""
     >
-      Sign in
+      Log In
     </a>
   );
 }
