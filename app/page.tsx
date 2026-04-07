@@ -4,6 +4,7 @@ import LogoutButton from "../src/components/LogoutButton";
 import StartButton from "../src/components/StartButton";
 import Profile from "../src/components/Profile";
 import Clock from "../src/components/Clock";
+import ChaosSceneWrapper from "../src/components/ChaosSceneWrapper";
 
 export default async function Home() {
   const session = await auth0.getSession();
@@ -18,7 +19,7 @@ export default async function Home() {
         <Profile user={user} />
       </div>
       <div className="">
-        chaos
+        <ChaosSceneWrapper />
       </div>
       <div className="flex justify-center">
         <StartButton />
