@@ -28,7 +28,7 @@ export default function AstralMeshModel() {
     const moonGlowControls = {
         falloff: 1.4,
         glowSharpness: 0.0,
-        glowColor: '#ffb600',
+        glowColor: '#528eff',
         glowInternalRadius: 3.7,
         opacity: 1.0,
         depthTest: false
