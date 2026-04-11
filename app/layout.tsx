@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
 import { Auth0Provider } from "@auth0/nextjs-auth0/client";
+import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import { Inter } from 'next/font/google'
  
 const inter = Inter({
   subsets: ['latin'],
 })
-
+ 
 export const metadata: Metadata = {
   title: "chaos",
   description: "Life tool for chaotic divas",
 };
-
+ 
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -20,6 +21,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${inter.className} h-full antialiased`}
     >
       <head>
@@ -30,7 +32,13 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="Chaos" />
         <link rel="manifest" href="/site.webmanifest" />
       </head>
-      <body className="homepage"><Auth0Provider>{children}</Auth0Provider></body>
+      <body className="homepage">
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          <Auth0Provider>
+            {children}
+          </Auth0Provider>
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

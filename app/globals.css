@@ -1,28 +1,22 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-light: linear-gradient(180deg, rgba(46, 137, 255, 1) 0%, rgba(76, 157, 255, 1) 33%, rgba(122, 192, 255, 1) 66%, rgba(194, 246, 255, 1) 100%);
+  --bg-dark: linear-gradient(180deg, rgba(6, 8, 110, 1) 0%, rgba(28, 23, 126, 1) 33%, rgba(44, 35, 138, 1) 66%, rgba(88, 65, 170, 1) 100%);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+html {
+  color-scheme: light;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #861a1a;
-  }
+html.dark {
+  color-scheme: dark;
 }
 
 body {
-  color: red;
+  background: var(--bg-light);
 }
 
-.homepage {
-  background-image: url("../public/windows_xp.jpg");
-  background-repeat: no-repeat;
-  background-position: center;
+html.dark body {
+  background: var(--bg-dark);
 }
