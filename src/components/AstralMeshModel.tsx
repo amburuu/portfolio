@@ -20,8 +20,8 @@ export default function AstralMeshModel() {
     const glassControls = {
         backside: true,
         transmission: 1.0,
-        roughness: 0.16,
-        thickness: 5.04,
+        roughness: 0.36,
+        thickness: 4.04,
         ior: 1.6
     };
 

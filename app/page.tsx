@@ -1,6 +1,5 @@
 'use client'
 
-import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import LoginButton from "../src/components/LoginButton";
 import LogoutButton from "../src/components/LogoutButton";
@@ -8,7 +7,8 @@ import StartButton from "../src/components/StartButton";
 import Profile from "../src/components/Profile";
 import Clock from "../src/components/Clock";
 import AstralMeshScene from "../src/components/AstralMeshScene";
-import CloudsMeshScene from "../src/components/LandscapeMeshScene";
+import CloudsMeshScene from "../src/components/CloudsMeshScene";
+
 import ThemeToggle from "../src/components/ThemeToggle";
 import { useUser } from "@auth0/nextjs-auth0/client";
 

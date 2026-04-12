@@ -7,7 +7,7 @@ import { Group } from "three";
 
 useGLTF.preload('/meshes/clouds.glb');
 
-export default function LandscapeMeshModel() {
+export default function CloudsMeshModel() {
     const groups = useRef<Group[]>([]);
     const { scene } = useGLTF('/meshes/clouds.glb') as any;
     

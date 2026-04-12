@@ -1,21 +1,13 @@
 "use client";
 import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
-import { useTheme } from "next-themes";
-import { OrbitControls } from "@react-three/drei";
+import { Environment, OrbitControls } from "@react-three/drei";
 import AstralMeshModel from "./AstralMeshModel";
 
-
 export default function AstralMeshScene() {
-        const { theme } = useTheme();
-    const isDark = theme === 'dark';
     return (
         <div className="w-[10vw] min-w-[80px] h-[15vh] flex items-center justify-center">
             <Canvas camera={{ position: [0, 0, 20], fov: 35 }}>
-            <ambientLight 
-                    intensity={isDark ? 0.2 : 1.5} 
-                    color={isDark ? '#9092ff' : '#db7311'} 
-                />
                 <Suspense fallback={null}>
                 <AstralMeshModel />
                 </Suspense>

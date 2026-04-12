@@ -2,17 +2,17 @@
 import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
 import { useTheme } from "next-themes";
-import LandscapeMeshModel from "./LandscapeMeshModel";
+import CloudsMeshModel from "./CloudsMeshModel";
+import MountainMeshModel from "./MountainMeshModel";
 
-export default function LandscapeMeshScene() {
+export default function CloudsMeshScene() {
     const { theme } = useTheme();
     const isDark = theme === 'dark';
 
     return (
         <div className="w-full h-screen flex items-center justify-center">
             <Canvas 
-                camera={{ position: [0, 0, 20], fov: 55 }}
-                shadows
+                camera={{ position: [0, 0, 20], fov: 65 }}
             >
                 {/* Directional light changes based on theme */}
                 <directionalLight 
@@ -35,7 +35,8 @@ export default function LandscapeMeshScene() {
                 />
                 
                 <Suspense fallback={null}>
-                    <LandscapeMeshModel />
+                    <CloudsMeshModel />
+                    <MountainMeshModel />
                 </Suspense>
             </Canvas>
         </div>
