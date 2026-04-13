@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --bg-light: linear-gradient(180deg, rgba(46, 137, 255, 1) 0%, rgba(76, 157, 255, 1) 33%, rgba(122, 192, 255, 1) 66%, rgba(194, 246, 255, 1) 100%);
-  --bg-dark: linear-gradient(180deg, rgba(6, 8, 110, 1) 0%, rgba(28, 23, 126, 1) 33%, rgba(44, 35, 138, 1) 66%, rgba(88, 65, 170, 1) 100%);
+  --bg-light: linear-gradient(180deg,rgba(0, 115, 255, 1) 0%, rgba(0, 162, 255, 1) 26%, rgba(60, 181, 232, 1) 55%, rgba(121, 200, 209, 1) 74%, rgba(255, 242, 158, 1) 100%);
+  --bg-dark: linear-gradient(0deg,rgba(223, 230, 92, 1) 0%, rgba(156, 126, 61, 1) 14%, rgba(48, 134, 110, 1) 38%, rgba(44, 111, 128, 1) 51%, rgba(33, 83, 110, 1) 60%, rgba(26, 64, 110, 1) 68%, rgba(20, 48, 110, 1) 84%, rgba(6, 8, 110, 1) 100%);
 }
 
 html {

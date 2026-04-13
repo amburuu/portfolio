@@ -11,6 +11,12 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "chaos",
   description: "Life tool for chaotic divas",
+  icons: {
+    icon: {
+      url: '/favicon.gif?v=1',
+      type: 'image/gif',
+    },
+  },
 };
  
 export default function RootLayout({
@@ -24,14 +30,6 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${inter.className} h-full antialiased`}
     >
-      <head>
-        <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <link rel="shortcut icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <meta name="apple-mobile-web-app-title" content="Chaos" />
-        <link rel="manifest" href="/site.webmanifest" />
-      </head>
       <body className="homepage">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           <Auth0Provider>

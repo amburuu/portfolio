@@ -1,7 +1,6 @@
 import { useGLTF, Sphere, MeshTransmissionMaterial } from "@react-three/drei";
 import { useRef } from "react";
 import { Group } from "three";
-import { useControls } from "leva";
 import { useTheme } from "next-themes";
 import { FakeGlowMaterial } from './FakeGlowMaterial';
 
