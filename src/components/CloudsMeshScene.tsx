@@ -14,9 +14,9 @@ export default function CloudsMeshScene() {
         <div className="w-full h-screen flex items-center justify-center">
             <Canvas camera={{ position: [0, 0, 20], fov: 65 }}>
                 <directionalLight 
-                    position={isDark ? [-10, 30, 10] : [0, 10, 10]} 
-                    intensity={2}
-                    color={isDark ? '#4c20c4' : '#ffea8f'}
+                    position={isDark ? [-10, 30, 10] : [-20, 1, 8]} 
+                    intensity={isDark ? 2 : 3}
+                    color={isDark ? '#5547cf' : '#d88f4b'}
                     castShadow
                     shadow-mapSize={[2048, 2048]}
                     shadow-camera-far={100}
@@ -27,12 +27,12 @@ export default function CloudsMeshScene() {
                 />
                 
                 <ambientLight 
-                    intensity={isDark ? 0.2 : 1} 
-                    color={isDark ? '#9092ff' : '#aefcff'} 
+                    intensity={isDark ? 0.3 : 1} 
+                    color={isDark ? '#6e3edd' : '#ffb380'} 
                 />
 
                 {/* light up the logo */}
-                {isDark ? (
+                {isDark && (
                     <>
                         <rectAreaLight
                             width={25}
@@ -43,24 +43,12 @@ export default function CloudsMeshScene() {
                             rotation={[-Math.PI / 2, 0, 0]}
                         />    
                     </>
-                ) : (
-                    <>
-                        <rectAreaLight
-                            width={120}
-                            height={20}
-                            intensity={0}
-                            color="#ff0000"
-                            position={[0, 2, 0]}
-                            rotation={[-Math.PI / 2, 0.4, 0]}
-                        />    
-                    </>
                 )}; 
 
                 <Suspense fallback={null}>
                     <CloudsMeshModel />
                     <MountainMeshModel />
-                </Suspense>
-                <OrbitControls /> 
+                </Suspense>  
             </Canvas>
         </div>
     );

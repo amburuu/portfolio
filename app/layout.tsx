@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   description: "Life tool for chaotic divas",
   icons: {
     icon: {
-      url: '/favicon.gif?v=1',
+      url: '/favicon.gif',
       type: 'image/gif',
     },
   },

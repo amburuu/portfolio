@@ -15,51 +15,63 @@ export default function LettersMeshModel() {
     const glassControls = {
         backside: true,
         transmission: 1.0,
-        roughness: 0.32,
-        thickness: 2.04,
-        ior: 4.5
+        roughness: 0.2,
+        thickness: 3.04,
+        ior: 4.5,
+        chromaticAberration: 3.5
     };
 
-    const glowControls = {
+    const glowControlsDay = {
         falloff: 1.4,
         glowSharpness: 0.0,
-        glowColor: '#f0680d',
+        glowColor: '#992f2f',
         glowInternalRadius: 6,
         opacity: 0.5,
         depthTest: false
     };
 
+    const glowControlsNight = {
+        falloff: 1.4,
+        glowSharpness: 0.0,
+        glowColor: '#f77e2e',
+        glowInternalRadius: 6,
+        opacity: 0.5,
+        depthTest: false
+    };
+
+    const glowControls = isDark ? glowControlsNight : glowControlsDay;
+
     return (
         <group ref={outer} position={[0, -5, 0]}>
             <mesh geometry={nodes.chaos_1.geometry}>
                 <MeshTransmissionMaterial {...glassControls} />
-                {isDark && (<Sphere args={[8, 32, 32]} position={[-10.5, 0, 0]}>
+                <Sphere args={[8, 32, 32]} position={[-10.5, 0, 0]}>
                     <FakeGlowMaterial {...glowControls} />
-                </Sphere>)}
+                </Sphere>
             </mesh>
             <mesh geometry={nodes.chaos_5.geometry}>
                 <MeshTransmissionMaterial {...glassControls} />
-                {isDark && (<Sphere args={[8, 32, 32]} position={[-5.5, 0, 0]}>
+                <Sphere args={[8, 32, 32]} position={[-5.5, 0, 0]}>
                     <FakeGlowMaterial {...glowControls} />
-                </Sphere>)}
+                </Sphere>
             </mesh>
             <mesh geometry={nodes.chaos_4.geometry}>
                 <MeshTransmissionMaterial {...glassControls} />
-                {isDark && (<Sphere args={[8, 32, 32]} position={[0, 0, 0]}>
+                <Sphere args={[8, 32, 32]} position={[0, 0, 0]}>
                     <FakeGlowMaterial {...glowControls} />
-                </Sphere>)}
+                </Sphere>
             </mesh>
             <mesh geometry={nodes.chaos_3.geometry}>
                 <MeshTransmissionMaterial {...glassControls} />
-                {isDark && (<Sphere args={[8, 32, 32]} position={[6, 0, 0]}>
+                <Sphere args={[8, 32, 32]} position={[6, 0, 0]}>
                     <FakeGlowMaterial {...glowControls} />
-                </Sphere>)}
+                </Sphere>
             </mesh>
             <mesh geometry={nodes.chaos_2.geometry}>
                 <MeshTransmissionMaterial {...glassControls} />
-                {isDark && (<Sphere args={[8, 32, 32]} position={[12, 0, 0]}>
+                <Sphere args={[8, 32, 32]} position={[12, 0, 0]}>
                     <FakeGlowMaterial {...glowControls} />
-                </Sphere>)}
+                </Sphere>
             </mesh>
         </group>
     );
