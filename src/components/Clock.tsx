@@ -17,7 +17,7 @@ export default function Clock() {
   }, []);
 
   return (
-    <div className="align-right">
+    <div className="text-right">
       <div>{today}</div>
       <div>{now.toLocaleTimeString()}</div>
     </div>

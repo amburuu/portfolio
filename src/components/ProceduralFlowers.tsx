@@ -10,6 +10,7 @@ interface FlowerConfig {
     areaWidth: number;
     areaDepth: number;
     colors: string[];
+    pondRadius: number;
 }
 
 // Seeded random number generator for consistent results
@@ -25,6 +26,7 @@ export function ProceduralFlowers({
     areaWidth = 96,
     areaDepth = 50,
     colors = ['#ff6b9d', '#ffd93d', '#6bcf7f'],
+    pondRadius = 5,
 }: Partial<FlowerConfig> = {}) {
     
     const geometry = useMemo(() => {
@@ -41,9 +43,18 @@ export function ProceduralFlowers({
             const seedColor = seededRandom(i * 3);
 
             // Random position in grass area
-            const x = (seedX - 0.5) * areaWidth;
-            const z = (seedZ - 0.5) * areaDepth;
-            const groundY = -10;
+            let x = (seedX - 0.5) * areaWidth;
+            let z = (seedZ - 0.5) * areaDepth;
+            
+            // Calculate distance from center
+            const distFromCenter = Math.sqrt(x * x + z * z);
+            
+            // Skip if too close to pond center
+            if (distFromCenter < pondRadius + 0.5) {
+                continue;
+            }
+            
+            const groundY = -1;
 
             // Consistent random color from the array
             const colorIndex = Math.floor(seedColor * colors.length);
@@ -95,7 +106,7 @@ export function ProceduralFlowers({
         geometry.computeVertexNormals();
 
         return geometry;
-    }, [flowerCount, flowerHeight, petalSize, areaWidth, areaDepth, colors.join(',')]);
+    }, [flowerCount, flowerHeight, petalSize, areaWidth, areaDepth, colors.join(','), pondRadius]);
 
     return (
         <mesh geometry={geometry}>

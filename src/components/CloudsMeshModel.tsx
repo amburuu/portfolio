@@ -5,43 +5,24 @@ import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import { Group } from "three";
 
-useGLTF.preload('/meshes/clouds.glb');
+useGLTF.preload('/meshes/clouds_circle.glb');
 
 export default function CloudsMeshModel() {
-    const groups = useRef<Group[]>([]);
-    const { scene } = useGLTF('/meshes/clouds.glb') as any;
-    
-    const speed = 0.006;
-    const cloudWidth = 110;
-
+    const { nodes } = useGLTF('/meshes/clouds_circle.glb') as any;
+    const outer = useRef<Group>(null);
+     const rotationSpeed = 0.0001;
+ 
     useFrame(() => {
-        groups.current.forEach((group) => {
-            if (group) {
-                group.position.x += speed;
-                
-                // Loop back when off screen
-                if (group.position.x > cloudWidth) {
-                    group.position.x = -cloudWidth * 2;
-                }
-            }
-        });
+        if (outer.current) {
+            outer.current.rotation.y += rotationSpeed;
+        }
     });
 
     return (
-        <group>
-            {/* Create 3 cloud instances for seamless looping */}
-            {[-cloudWidth, 0, cloudWidth].map((startX, idx) => (
-                <group 
-                    key={idx}
-                    ref={(el) => {
-                        if (el) groups.current[idx] = el;
-                    }}
-                    position={[startX, 0, -10]}
-                >
-                    <primitive object={scene.clone()} />
-                    <meshStandardMaterial color="white" />
-                </group>
-            ))}
+        <group ref={outer}>
+            <mesh geometry={nodes.clouds.geometry} position={[0, 0, 0]}>
+                <meshStandardMaterial color={'white'} />
+            </mesh>
         </group>
     );
 }

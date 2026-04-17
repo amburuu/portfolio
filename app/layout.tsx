@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Auth0Provider } from "@auth0/nextjs-auth0/client";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import { Inter } from 'next/font/google'
@@ -9,8 +8,8 @@ const inter = Inter({
 })
  
 export const metadata: Metadata = {
-  title: "chaos",
-  description: "Life tool for chaotic divas",
+  title: "Ambre Nguyen - Portfolio",
+  description: "3d portfolio",
   icons: {
     icon: {
       url: '/favicon.gif',
@@ -30,11 +29,9 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${inter.className} h-full antialiased`}
     >
-      <body className="homepage">
+      <body className="homepage h-screen">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-          <Auth0Provider>
             {children}
-          </Auth0Provider>
         </ThemeProvider>
       </body>
     </html>
