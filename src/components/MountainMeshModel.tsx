@@ -2,7 +2,7 @@ import { useGLTF } from "@react-three/drei";
 import { useRef } from "react";
 import { Group } from "three";
 import { ProceduralGrass } from "./ProceduralGrass";
-import LettersMeshModel from "./LettersMeshModel";
+import FishSignMeshModel from "./FishSignMeshModel";
 import { ProceduralFlowers } from "./ProceduralFlowers";
 import { useTheme } from "next-themes";
 import { Sparkles } from "@react-three/drei";
@@ -61,9 +61,9 @@ export default function MountainMeshModel() {
                 colors={['#f1410c', '#ca0c1c', '#ffdc15']}
             />
 
-            <group scale={[2, 0.6, 0.6]} position={[0,6.5,0]}> 
+            <group scale={[1, 0.5, 0.5]} position={[0,15,0]}> 
                 <Sparkles
-                    count={66}
+                    count={32}
                     scale={16.8}
                     size={42.5}
                     speed={1.66}
@@ -72,7 +72,7 @@ export default function MountainMeshModel() {
                 />
             </group>
             
-            <LettersMeshModel />
+            <FishSignMeshModel />
         </group>
     );
 }

@@ -4,11 +4,11 @@ import { Group } from "three";
 import FakeGlowMaterial from "./FakeGlowMaterial";
 import { useTheme } from "next-themes";
 
-useGLTF.preload('/meshes/chaos.glb');
+useGLTF.preload('/meshes/fish_sign.glb');
 
-export default function LettersMeshModel() {
+export default function FishSignMeshModel() {
     const outer = useRef<Group>(null);
-    const { nodes } = useGLTF('/meshes/chaos.glb') as any;
+    const { nodes } = useGLTF('/meshes/fish_sign.glb') as any;
     const { theme } = useTheme();
     const isDark = theme === 'dark';
 
@@ -42,36 +42,39 @@ export default function LettersMeshModel() {
     const glowControls = isDark ? glowControlsNight : glowControlsDay;
 
     return (
-        <group ref={outer} position={[0, 2, 0]}>
-            <mesh geometry={nodes.chaos_1.geometry} position={[0, 4, 0]}>
+        <group ref={outer} position={[0, 8, 0]} scale={0.5}>
+            <mesh geometry={nodes.body.geometry} position={[0, 4, 0]}>
                 <MeshTransmissionMaterial {...glassControls} />
-                <Sphere args={[8, 32, 32]} position={[-10.5, 0, 0]}>
+                <Sphere args={[10, 32, 32]} position={[0, 2, 0]}>
+                    <FakeGlowMaterial {...glowControls} />
+                </Sphere>
+                <Sphere args={[10, 32, 32]} position={[-6, 2, 0]}>
+                    <FakeGlowMaterial {...glowControls} />
+                </Sphere>
+                <Sphere args={[10, 32, 32]} position={[6, 2, 0]}>
                     <FakeGlowMaterial {...glowControls} />
                 </Sphere>
             </mesh>
-            <mesh geometry={nodes.chaos_5.geometry} position={[0, 4, 0]}>
+            <mesh geometry={nodes.fins.geometry} position={[0, 4, 0]}>
                 <MeshTransmissionMaterial {...glassControls} />
-                <Sphere args={[8, 32, 32]} position={[-5.5, 0, 0]}>
-                    <FakeGlowMaterial {...glowControls} />
-                </Sphere>
             </mesh>
-            <mesh geometry={nodes.chaos_4.geometry} position={[0, 4, 0]}>
+            <mesh geometry={nodes.pupil_1.geometry} position={[0, 4, 0]}>
                 <MeshTransmissionMaterial {...glassControls} />
-                <Sphere args={[8, 32, 32]} position={[0, 0, 0]}>
-                    <FakeGlowMaterial {...glowControls} />
-                </Sphere>
             </mesh>
-            <mesh geometry={nodes.chaos_3.geometry} position={[0, 4, 0]}>
+            <mesh geometry={nodes.pupil_2.geometry} position={[0, 4, 0]}>
                 <MeshTransmissionMaterial {...glassControls} />
-                <Sphere args={[8, 32, 32]} position={[6, 0, 0]}>
-                    <FakeGlowMaterial {...glowControls} />
-                </Sphere>
             </mesh>
-            <mesh geometry={nodes.chaos_2.geometry} position={[0, 4, 0]}>
+            <mesh geometry={nodes.eye_1.geometry} position={[0, 4, 0]}>
                 <MeshTransmissionMaterial {...glassControls} />
-                <Sphere args={[8, 32, 32]} position={[12, 0, 0]}>
-                    <FakeGlowMaterial {...glowControls} />
-                </Sphere>
+            </mesh>
+            <mesh geometry={nodes.eye_2.geometry} position={[0, 4, 0]}>
+                <MeshTransmissionMaterial {...glassControls} />
+            </mesh>
+            <mesh geometry={nodes.text_1.geometry} position={[0, 4, 0]}>
+                <MeshTransmissionMaterial {...glassControls} />
+            </mesh>
+            <mesh geometry={nodes.text_2.geometry} position={[0, 4, 0]}>
+                <MeshTransmissionMaterial {...glassControls} />
             </mesh>
         </group>
     );

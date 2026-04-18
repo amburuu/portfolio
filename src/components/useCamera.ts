@@ -29,23 +29,17 @@ export function useCamera({
         positionRef.current.z = 20;
     }, [camera]);
 
-    // Mouse movement listener with pointer lock
+    // Mouse movement listener
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
             mouseRef.current.x += e.movementX;
             mouseRef.current.y += e.movementY;
         };
 
-        const handleClick = () => {
-            document.documentElement.requestPointerLock();
-        };
-
         window.addEventListener('mousemove', handleMouseMove);
-        document.addEventListener('click', handleClick);
 
         return () => {
             window.removeEventListener('mousemove', handleMouseMove);
-            document.removeEventListener('click', handleClick);
         };
     }, []);
 
