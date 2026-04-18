@@ -3,8 +3,7 @@
 import { useEffect, useState } from "react";
 import Clock from "../src/components/Clock";
 import AstralMeshScene from "../src/components/AstralMeshScene";
-import CloudsMeshScene from "../src/components/CloudsMeshScene";
-
+import SceneView from "../src/components/SceneView";
 import ThemeToggle from "../src/components/ThemeToggle";
 
 export default function Home() {
@@ -19,7 +18,7 @@ export default function Home() {
   return (
     <>
       <div className="fixed inset-0 w-full h-screen z-0">
-        <CloudsMeshScene />
+        <SceneView />
       </div>
       <main className="relative z-10 flex flex-col text-center justify-center">
         <ThemeToggle />

@@ -10,7 +10,7 @@ interface UseCameraProps {
 }
 
 export function useCamera({
-    minRadius = 12,
+    minRadius = 14,
     maxRadius = 48,
     speed = 0.3,
     mouseSensitivity = 0.005,

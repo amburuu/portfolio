@@ -23,8 +23,8 @@ export function ProceduralFlowers({
     flowerCount = 200,
     flowerHeight = 1.5,
     petalSize = 0.3,
-    areaWidth = 96,
-    areaDepth = 50,
+    areaWidth = 30,
+    areaDepth = 30,
     colors = ['#ff6b9d', '#ffd93d', '#6bcf7f'],
     pondRadius = 5,
 }: Partial<FlowerConfig> = {}) {
@@ -48,13 +48,23 @@ export function ProceduralFlowers({
             
             // Calculate distance from center
             const distFromCenter = Math.sqrt(x * x + z * z);
+
+            // Perlin-like noise for irregular circle boundary
+            const angle = Math.atan2(z, x);
+            const noiseValue = Math.sin(angle * 3) * 0.3 + Math.sin(angle * 7) * 0.2;
+            const irregularRadius = 12 + noiseValue * 3;
+
+            // Skip if outside irregular circle
+            if (distFromCenter > irregularRadius) {
+                continue;
+            }
             
             // Skip if too close to pond center
             if (distFromCenter < pondRadius + 0.5) {
                 continue;
             }
             
-            const groundY = -1;
+            const groundY = -2.5;
 
             // Consistent random color from the array
             const colorIndex = Math.floor(seedColor * colors.length);
@@ -62,10 +72,7 @@ export function ProceduralFlowers({
             const hexColor = parseInt(color.replace('#', ''), 16);
             const r = ((hexColor >> 16) & 255) / 255;
             const g = ((hexColor >> 8) & 255) / 255;
-            const b = (hexColor & 255) / 255;
-
-            // Stem
-            const stemBaseIndex = positions.length / 3;
+            const b = (hexColor & 255) / 255;            
             
             positions.push(x, groundY, z);
             colorData.push(r * 0.6, g * 0.6, b * 0.6);

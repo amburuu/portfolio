@@ -41,13 +41,23 @@ function generateGrassGeometry(
     const baseG = (hexColor >> 8) & 255;
     const baseB = hexColor & 255;
 
-    // Generate grass blades
+    // Generate grass blades in circular pattern with irregularity
     for (let i = 0; i < bladeCount; i++) {
         let x = (Math.random() - 0.5) * areaWidth;
         let z = (Math.random() - 0.5) * areaDepth;
         
         // Calculate distance from center
         const distFromCenter = Math.sqrt(x * x + z * z);
+        
+        // Perlin-like noise for irregular circle boundary
+        const angle = Math.atan2(z, x);
+        const noiseValue = Math.sin(angle * 3) * 0.3 + Math.sin(angle * 7) * 0.2;
+        const irregularRadius = 15 + noiseValue * 2;
+        
+        // Skip if outside irregular circle
+        if (distFromCenter > irregularRadius) {
+            continue;
+        }
         
         // Skip if too close to pond center
         if (distFromCenter < pondRadius) {
@@ -60,6 +70,10 @@ function generateGrassGeometry(
         if (distFromCenter < fadeDistance) {
             fadeFactor = (distFromCenter - pondRadius) / (fadeDistance - pondRadius);
         }
+        
+        // Fade at the outer edge of irregular circle
+        const edgeFade = Math.max(0, 1 - (distFromCenter - irregularRadius + 5) / 5);
+        fadeFactor *= edgeFade;
         
         // Push grass away from letters
         for (const letterPos of letterPositions) {
@@ -96,7 +110,7 @@ function generateGrassGeometry(
         const groundY = 0;
         
         // Alternate rotation based on index
-        const rotation = i % 3; // 0, 1, or 2 for different angles
+        const rotation = i % 3;
         
         if (rotation === 0) {
             // Original orientation (X/Z axis)
