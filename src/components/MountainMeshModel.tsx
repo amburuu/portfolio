@@ -61,12 +61,12 @@ export default function MountainMeshModel() {
                 colors={['#f1410c', '#ca0c1c', '#ffdc15']}
             />
 
-            <group scale={[2, 0.6, 0.6]} position={[0,0,0]}> 
+            <group scale={[2, 0.6, 0.6]} position={[0,6.5,0]}> 
                 <Sparkles
                     count={66}
                     scale={16.8}
                     size={42.5}
-                    speed={1.50}
+                    speed={1.66}
                     opacity={0.79}
                     color={'#d2ff42'}
                 />

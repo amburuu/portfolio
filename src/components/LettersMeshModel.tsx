@@ -43,33 +43,33 @@ export default function LettersMeshModel() {
 
     return (
         <group ref={outer} position={[0, 2, 0]}>
-            <mesh geometry={nodes.chaos_1.geometry}>
+            <mesh geometry={nodes.chaos_1.geometry} position={[0, 4, 0]}>
                 <MeshTransmissionMaterial {...glassControls} />
-                <Sphere args={[8, 32, 32]} position={[-10.5, 4, 0]}>
+                <Sphere args={[8, 32, 32]} position={[-10.5, 0, 0]}>
                     <FakeGlowMaterial {...glowControls} />
                 </Sphere>
             </mesh>
-            <mesh geometry={nodes.chaos_5.geometry}>
+            <mesh geometry={nodes.chaos_5.geometry} position={[0, 4, 0]}>
                 <MeshTransmissionMaterial {...glassControls} />
-                <Sphere args={[8, 32, 32]} position={[-5.5, 4, 0]}>
+                <Sphere args={[8, 32, 32]} position={[-5.5, 0, 0]}>
                     <FakeGlowMaterial {...glowControls} />
                 </Sphere>
             </mesh>
-            <mesh geometry={nodes.chaos_4.geometry}>
+            <mesh geometry={nodes.chaos_4.geometry} position={[0, 4, 0]}>
                 <MeshTransmissionMaterial {...glassControls} />
-                <Sphere args={[8, 32, 32]} position={[0, 4, 0]}>
+                <Sphere args={[8, 32, 32]} position={[0, 0, 0]}>
                     <FakeGlowMaterial {...glowControls} />
                 </Sphere>
             </mesh>
-            <mesh geometry={nodes.chaos_3.geometry}>
+            <mesh geometry={nodes.chaos_3.geometry} position={[0, 4, 0]}>
                 <MeshTransmissionMaterial {...glassControls} />
-                <Sphere args={[8, 32, 32]} position={[6, 4, 0]}>
+                <Sphere args={[8, 32, 32]} position={[6, 0, 0]}>
                     <FakeGlowMaterial {...glowControls} />
                 </Sphere>
             </mesh>
-            <mesh geometry={nodes.chaos_2.geometry}>
+            <mesh geometry={nodes.chaos_2.geometry} position={[0, 4, 0]}>
                 <MeshTransmissionMaterial {...glassControls} />
-                <Sphere args={[8, 32, 32]} position={[12, 4, 0]}>
+                <Sphere args={[8, 32, 32]} position={[12, 0, 0]}>
                     <FakeGlowMaterial {...glowControls} />
                 </Sphere>
             </mesh>
