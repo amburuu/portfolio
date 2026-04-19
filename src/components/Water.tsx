@@ -2,15 +2,87 @@
 
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { ShaderMaterial, Mesh } from 'three';
+import { ShaderMaterial, Mesh, Vector3 } from 'three';
 
-export function Water() {
+interface WaterProps {
+    // Géométrie
+    position?: [number, number, number];
+    rotation?: [number, number, number];
+    size?: number;
+    segmentsW?: number;
+    segmentsH?: number;
+
+    // Animation des vagues
+    waveAmplitude?: number;
+    waveFrequencyX?: number;
+    waveFrequencyZ?: number;
+    waveSpeedX?: number;
+    waveSpeedZ?: number;
+
+    // Voronoi / Pattern
+    voronoiScale?: number;
+    cellSpeed?: number;
+    flowX?: number;
+    flowZ?: number;
+
+    // Edges
+    edgeThreshold?: number;
+    edgeSoftness?: number;
+
+    // Couleurs
+    deepColor?: [number, number, number];
+    highlightColor?: [number, number, number];
+
+    // Transparency & rendering
+    opacity?: number;
+    circleRadius?: number;
+    enableCircleMask?: boolean;
+}
+
+export function Water({
+    // Géométrie
+    position = [0, 0, 0],
+    rotation = [-Math.PI / 2, 0, 0],
+    size = 30,
+    segmentsW = 256,
+    segmentsH = 256,
+
+    // Animation des vagues
+    waveAmplitude = 0.1,
+    waveFrequencyX = 0.5,
+    waveFrequencyZ = 0.5,
+    waveSpeedX = 1,
+    waveSpeedZ = 0.8,
+
+    // Voronoi / Pattern
+    voronoiScale = 0.4,
+    cellSpeed = 0.3,
+    flowX = 0.1,
+    flowZ = 0.1,
+
+    // Edges
+    edgeThreshold = 0.12,
+    edgeSoftness = 0.1,
+
+    // Couleurs
+    deepColor = [0.0, 0.4, 0.8],
+    highlightColor = [0.2, 0.5, 0.8],
+
+    // Transparency & rendering
+    opacity = 0.7,
+    circleRadius = 0.5,
+    enableCircleMask = true,
+}: WaterProps = {}) {
     const meshRef = useRef<Mesh>(null);
     const materialRef = useRef<ShaderMaterial>(null);
 
     const vertexShader = `
         uniform float uTime;
         uniform float uWaveAmplitude;
+        uniform float uWaveFrequencyX;
+        uniform float uWaveFrequencyZ;
+        uniform float uWaveSpeedX;
+        uniform float uWaveSpeedZ;
         
         varying vec2 vWorldPos;
         varying vec2 vUv;
@@ -23,8 +95,10 @@ export function Water() {
             
             vec3 pos = position;
             
-            // Gentle wave animation
-            float wave = sin(pos.x * 0.5 + uTime) * 0.2 + sin(pos.z * 0.5 + uTime * 0.8) * 0.2;
+            // Wave animation avec paramètres contrôlables
+            float waveX = sin(pos.x * uWaveFrequencyX + uTime * uWaveSpeedX) * 0.2;
+            float waveZ = sin(pos.z * uWaveFrequencyZ + uTime * uWaveSpeedZ) * 0.2;
+            float wave = waveX + waveZ;
             pos.y += wave * uWaveAmplitude;
             vWave = wave;
             
@@ -42,6 +116,9 @@ export function Water() {
         uniform float uEdgeSoftness;
         uniform vec3 uDeepColor;
         uniform vec3 uHighlight;
+        uniform float uOpacity;
+        uniform float uCircleRadius;
+        uniform bool uEnableCircleMask;
         
         varying vec2 vWorldPos;
         varying vec2 vUv;
@@ -86,14 +163,16 @@ export function Water() {
         }
 
         void main() {
-            // Circular mask
-            vec2 centerUv = vUv - 0.5;
-            float dist = length(centerUv);
-            float circleMask = smoothstep(0.24, 0.19, dist);
+            // Circular mask (optionnel)
+            float circleMask = 1.0;
+            if (uEnableCircleMask) {
+                vec2 centerUv = vUv - 0.5;
+                float dist = length(centerUv);
+                circleMask = smoothstep(uCircleRadius, uCircleRadius - 0.05, dist);
+                if(circleMask < 0.01) discard;
+            }
             
-            if(circleMask < 0.01) discard;
-            
-            // Voronoi
+            // Voronoi pattern
             vec2 uv = vWorldPos * uScale + vec2(uFlowX, uFlowZ) * uTime;
             float f1 = voronoiF1(uv);
             float sf1 = voronoiSF1(uv);
@@ -104,7 +183,7 @@ export function Water() {
             t = t * t * (3.0 - 2.0 * t);
             vec3 color = mix(uDeepColor, uHighlight, t);
 
-            gl_FragColor = vec4(color, 0.7 * circleMask);
+            gl_FragColor = vec4(color, uOpacity * circleMask);
         }
     `;
 
@@ -117,25 +196,32 @@ export function Water() {
     return (
         <mesh 
             ref={meshRef} 
-            position={[0, 0, 0]} 
-            rotation={[-Math.PI / 2, 0, 0]}
+            position={position}
+            rotation={rotation}
         >
-            <planeGeometry args={[30, 30, 256, 256]} />
+            <planeGeometry args={[size, size, segmentsW, segmentsH]} />
             <shaderMaterial
                 ref={materialRef}
                 vertexShader={vertexShader}
                 fragmentShader={fragmentShader}
                 uniforms={{
                     uTime: { value: 0 },
-                    uWaveAmplitude: { value: 0.1 },
-                    uScale: { value: 0.4 },
-                    uCellSpeed: { value: 0.3 },
-                    uFlowX: { value: 0.1 },
-                    uFlowZ: { value: 0.1 },
-                    uEdgeThreshold: { value: 0.12 },
-                    uEdgeSoftness: { value: 0.10 },
-                    uDeepColor: { value: { r: 0.0, g: 0.4, b: 0.8 } },
-                    uHighlight: { value: { r: 0.2, g: 0.5, b: 0.8 } },
+                    uWaveAmplitude: { value: waveAmplitude },
+                    uWaveFrequencyX: { value: waveFrequencyX },
+                    uWaveFrequencyZ: { value: waveFrequencyZ },
+                    uWaveSpeedX: { value: waveSpeedX },
+                    uWaveSpeedZ: { value: waveSpeedZ },
+                    uScale: { value: voronoiScale },
+                    uCellSpeed: { value: cellSpeed },
+                    uFlowX: { value: flowX },
+                    uFlowZ: { value: flowZ },
+                    uEdgeThreshold: { value: edgeThreshold },
+                    uEdgeSoftness: { value: edgeSoftness },
+                    uDeepColor: { value: new Vector3(deepColor[0], deepColor[1], deepColor[2]) },
+                    uHighlight: { value: new Vector3(highlightColor[0], highlightColor[1], highlightColor[2]) },
+                    uOpacity: { value: opacity },
+                    uCircleRadius: { value: circleRadius },
+                    uEnableCircleMask: { value: enableCircleMask },
                 }}
                 side={2}
                 transparent

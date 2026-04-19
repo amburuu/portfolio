@@ -1,14 +1,15 @@
 "use client";
 import { Canvas } from "@react-three/fiber";
-import { Sparkles } from "@react-three/drei";
+import { OrbitControls, Sparkles } from "@react-three/drei";
 import { Suspense } from "react";
 import { useTheme } from "next-themes";
 import { ProceduralGrass } from "./ProceduralGrass";
 import FishSignMeshModel from "./FishSignMeshModel";
 import { ProceduralFlowers } from "./ProceduralFlowers";
 import { Water } from "./Water";
-import { OrbitControls } from "@react-three/drei";
 import { useCamera } from "./useCamera";
+import IslandModel from "./IslandModel";
+import { SkyDome, SKY_PRESETS } from "./SkyDome";
 
 export default function SceneView() {
     const { theme } = useTheme();
@@ -74,6 +75,7 @@ export default function SceneView() {
                 )}; 
 
                 <Suspense fallback={null}>
+                    <IslandModel />
                     <ProceduralGrass
                         bladeCount={20000}
                         bladeHeight={1}
@@ -105,8 +107,37 @@ export default function SceneView() {
                             color={isDark ? "#0cf1f1" : "#ffdc15"}
                         />
                     </group>
-                    <Water />            
+                    {/* pond */}
+                    <Water
+                        position={[0, 0, 0]}
+                        size={15}
+                        waveAmplitude={0.05}
+                        enableCircleMask={true}
+                        deepColor={[0.0, 0.4, 0.8]}     
+                        highlightColor={[0.2, 0.5, 0.8]}   
+                    />
+
+                    {/* ocean */}
+                    <Water
+                        position={[0, -8, 0]}
+                        size={1000}
+                        waveAmplitude={0.3}
+                        voronoiScale={0.06}
+                        cellSpeed={0.5}
+                        enableCircleMask={true}
+                        deepColor={[0.0, 0.0, 1]}     
+                        highlightColor={[0.1, 0.2, 1]} 
+                    />         
                     <FishSignMeshModel />
+
+                    <SkyDome
+                        position={[0, -20, 0]}
+                        radius={600}
+                        height={300}
+                        gradientStops={ isDark ? SKY_PRESETS.night : SKY_PRESETS.day}
+                        widthSegments={32}
+                        heightSegments={32}
+                    />
                 </Suspense>  
             </Canvas>
         </div>

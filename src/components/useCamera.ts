@@ -140,6 +140,5 @@ export function useCamera({
         );
         camera.lookAt(lookAtPoint);
     });
-
     return positionRef.current;
 }
