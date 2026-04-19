@@ -6,20 +6,19 @@ interface UseCameraProps {
     minRadius: number;
     maxRadius: number;
     speed: number;
-    mouseSensitivity: number;
+    rotationSpeed: number;
 }
 
 export function useCamera({
     minRadius = 14,
     maxRadius = 48,
     speed = 0.3,
-    mouseSensitivity = 0.005,
+    rotationSpeed = 2.5,
 }: UseCameraProps) {
     const { camera } = useThree();
     const keysPressed = useRef<{ [key: string]: boolean }>({});
     const positionRef = useRef({ x: 0, z: 20 });
     const rotationRef = useRef({ x: 0, y: 0 });
-    const mouseRef = useRef({ x: 0, y: 0 });
     const velocityRef = useRef({ x: 0, z: 0 });
 
     // Set initial camera position
@@ -29,32 +28,19 @@ export function useCamera({
         positionRef.current.z = 20;
     }, [camera]);
 
-    // Mouse movement listener
-    useEffect(() => {
-        const handleMouseMove = (e: MouseEvent) => {
-            mouseRef.current.x += e.movementX;
-            mouseRef.current.y += e.movementY;
-        };
-
-        window.addEventListener('mousemove', handleMouseMove);
-
-        return () => {
-            window.removeEventListener('mousemove', handleMouseMove);
-        };
-    }, []);
-
     // Keyboard listener
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             const key = e.key.toLowerCase();
-            if (['w', 'a', 's', 'd', 'z', 'q'].includes(key)) {
+            // Ajout des touches ArrowLeft et ArrowRight pour la rotation
+            if (['w', 'a', 's', 'd', 'z', 'q', 'arrowleft', 'arrowright', 'arrowup', 'arrowdown'].includes(key)) {
                 keysPressed.current[key] = true;
             }
         };
 
         const handleKeyUp = (e: KeyboardEvent) => {
             const key = e.key.toLowerCase();
-            if (['w', 'a', 's', 'd', 'z', 'q'].includes(key)) {
+            if (['w', 'a', 's', 'd', 'z', 'q', 'arrowleft', 'arrowright', 'arrowup', 'arrowdown'].includes(key)) {
                 keysPressed.current[key] = false;
             }
         };
@@ -83,12 +69,7 @@ export function useCamera({
         if (keysPressed.current['s']) {
             moveZ += speed;
         }
-        if (keysPressed.current['a'] || keysPressed.current['q']) {
-            moveX -= speed;
-        }
-        if (keysPressed.current['d']) {
-            moveX += speed;
-        }
+
 
         // Rotate movement vector based on camera Y rotation
         const dirX = moveX * Math.cos(rotationRef.current.y) - moveZ * Math.sin(rotationRef.current.y);
@@ -127,16 +108,24 @@ export function useCamera({
             velocityRef.current.z = 0;
         }
 
-        // Handle mouse rotation with delta time
-        rotationRef.current.y += mouseRef.current.x * mouseSensitivity * delta * 100;
-        rotationRef.current.x -= mouseRef.current.y * mouseSensitivity * delta * 100;
+        // Handle keyboard-based rotation (droite/gauche avec flèches ou A/D/Q)
+        if (keysPressed.current['arrowright'] || keysPressed.current['d']) {
+            rotationRef.current.y += rotationSpeed * delta;
+        }
+        if (keysPressed.current['arrowleft'] || keysPressed.current['a'] || keysPressed.current['q']) {
+            rotationRef.current.y -= rotationSpeed * delta;
+        }
+
+        // Optional: rotation vertical avec flèches haut/bas
+        if (keysPressed.current['arrowup']) {
+            rotationRef.current.x += rotationSpeed * delta * 0.7;
+        }
+        if (keysPressed.current['arrowdown']) {
+            rotationRef.current.x -= rotationSpeed * delta * 0.7;
+        }
 
         // Clamp vertical rotation to prevent flipping
         rotationRef.current.x = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, rotationRef.current.x));
-
-        // Reset mouse movement
-        mouseRef.current.x = 0;
-        mouseRef.current.y = 0;
 
         // Update camera position
         camera.position.x = positionRef.current.x;

@@ -56,25 +56,25 @@ export default function FishSignMeshModel() {
                 </Sphere>
             </mesh>
             <mesh geometry={nodes.fins.geometry} position={[0, 4, 0]}>
-                <MeshTransmissionMaterial {...glassControls} />
+                <meshStandardMaterial color={'black'} />
             </mesh>
             <mesh geometry={nodes.pupil_1.geometry} position={[0, 4, 0]}>
-                <MeshTransmissionMaterial {...glassControls} />
+                <meshStandardMaterial color={'black'} />
             </mesh>
             <mesh geometry={nodes.pupil_2.geometry} position={[0, 4, 0]}>
-                <MeshTransmissionMaterial {...glassControls} />
+                <meshStandardMaterial color={'black'} />
             </mesh>
             <mesh geometry={nodes.eye_1.geometry} position={[0, 4, 0]}>
-                <MeshTransmissionMaterial {...glassControls} />
+                <meshStandardMaterial color={'white'} />
             </mesh>
             <mesh geometry={nodes.eye_2.geometry} position={[0, 4, 0]}>
-                <MeshTransmissionMaterial {...glassControls} />
+                <meshStandardMaterial color={'white'} />
             </mesh>
             <mesh geometry={nodes.text_1.geometry} position={[0, 4, 0]}>
-                <MeshTransmissionMaterial {...glassControls} />
+                <meshStandardMaterial color={'black'} />
             </mesh>
             <mesh geometry={nodes.text_2.geometry} position={[0, 4, 0]}>
-                <MeshTransmissionMaterial {...glassControls} />
+                <meshStandardMaterial color={'black'} />
             </mesh>
         </group>
     );

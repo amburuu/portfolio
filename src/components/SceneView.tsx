@@ -19,7 +19,7 @@ export default function SceneView() {
             minRadius: 12,      // Pond radius
             maxRadius: 48,     // Mountains radius (adjust to your terrain size)
             speed: 0.4,        // Movement speed
-            mouseSensitivity: 0.005,
+            rotationSpeed: 2.5
         });
         return null;
     }
@@ -108,7 +108,6 @@ export default function SceneView() {
                     <Water />            
                     <FishSignMeshModel />
                 </Suspense>  
-                <OrbitControls />
             </Canvas>
         </div>
     );
