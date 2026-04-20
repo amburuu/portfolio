@@ -15,16 +15,16 @@ export default function FishSignMeshModel() {
     const glassControls = {
         backside: true,
         transmission: 1.0,
-        roughness: 0.2,
-        thickness: 3.04,
-        ior: 4.5,
-        chromaticAberration: 3.5
+        roughness: 0.1,
+        thickness: 12.04,
+        ior: 9.5,
+        chromaticAberration: 0.5
     };
 
     const glowControlsDay = {
         falloff: 1.4,
-        glowSharpness: 0.0,
-        glowColor: '#992f2f',
+        glowSharpness: 0.1,
+        glowColor: '#0987b9',
         glowInternalRadius: 6,
         opacity: 0.5,
         depthTest: false
@@ -33,7 +33,7 @@ export default function FishSignMeshModel() {
     const glowControlsNight = {
         falloff: 1.4,
         glowSharpness: 0.0,
-        glowColor: '#f77e2e',
+        glowColor: '#e06f23',
         glowInternalRadius: 6,
         opacity: 0.5,
         depthTest: false
@@ -56,25 +56,25 @@ export default function FishSignMeshModel() {
                 </Sphere>
             </mesh>
             <mesh geometry={nodes.fins.geometry} position={[0, 4, 0]}>
-                <meshStandardMaterial color={'black'} />
+                <MeshTransmissionMaterial {...glassControls} />
             </mesh>
             <mesh geometry={nodes.pupil_1.geometry} position={[0, 4, 0]}>
-                <meshStandardMaterial color={'black'} />
+                <MeshTransmissionMaterial {...glassControls} />
             </mesh>
             <mesh geometry={nodes.pupil_2.geometry} position={[0, 4, 0]}>
-                <meshStandardMaterial color={'black'} />
+                <MeshTransmissionMaterial {...glassControls} />
             </mesh>
             <mesh geometry={nodes.eye_1.geometry} position={[0, 4, 0]}>
-                <meshStandardMaterial color={'white'} />
+                <MeshTransmissionMaterial {...glassControls} />
             </mesh>
             <mesh geometry={nodes.eye_2.geometry} position={[0, 4, 0]}>
-                <meshStandardMaterial color={'white'} />
+                <MeshTransmissionMaterial {...glassControls} />
             </mesh>
             <mesh geometry={nodes.text_1.geometry} position={[0, 4, 0]}>
-                <meshStandardMaterial color={'black'} />
+                <MeshTransmissionMaterial {...glassControls} />
             </mesh>
             <mesh geometry={nodes.text_2.geometry} position={[0, 4, 0]}>
-                <meshStandardMaterial color={'black'} />
+                <MeshTransmissionMaterial {...glassControls} />
             </mesh>
         </group>
     );

@@ -29,7 +29,7 @@ export default function SceneView() {
         <div className="w-full h-screen flex items-center justify-center">
             <Canvas camera={{ position: [0, 7, 20], fov: 65 }}>
                 <CameraController />
-                <directionalLight 
+                {/* <directionalLight 
                     position={isDark ? [-10, 30, 10] : [0, 10, -10]} 
                     intensity={isDark ? 2 : 3}
                     color={isDark ? '#5547cf' : '#d88f4b'}
@@ -40,39 +40,25 @@ export default function SceneView() {
                     shadow-camera-right={50}
                     shadow-camera-top={50}
                     shadow-camera-bottom={-50}
-                />
-                <directionalLight 
-                    position={isDark ? [-10, 30, 10] : [0, 10, 10]} 
-                    intensity={isDark ? 2 : 3}
-                    color={isDark ? '#5547cf' : '#d88f4b'}
-                    castShadow
-                    shadow-mapSize={[2048, 2048]}
-                    shadow-camera-far={100}
-                    shadow-camera-left={-50}
-                    shadow-camera-right={50}
-                    shadow-camera-top={50}
-                    shadow-camera-bottom={-50}
-                     target-position={[0, -5, 0]}
-                />
-                
+                /> */}
                 <ambientLight 
                     intensity={isDark ? 0.3 : 1} 
-                    color={isDark ? '#6e3edd' : '#ffb380'} 
+                    color={isDark ? '#dd703e' : '#ffb380'} 
                 />
 
                 {/* light up the logo */}
-                {isDark && (
+                {/* {isDark && (
                     <>
                         <rectAreaLight
                             width={25}
                             height={6}
                             intensity={10}
-                            color="#b69816"
-                            position={[0, 7, 5]}
-                            rotation={[-Math.PI / 2, 0, 0]}
+                            color="#b65e16"
+                            position={[0, 7, 1]}
+                            rotation={[-1.2, 0, 0]}
                         />    
                     </>
-                )}; 
+                )};  */}
 
                 <Suspense fallback={null}>
                     <IslandModel />
@@ -123,7 +109,7 @@ export default function SceneView() {
                         size={1000}
                         waveAmplitude={0.3}
                         voronoiScale={0.06}
-                        cellSpeed={0.5}
+                        cellSpeed={0.2}
                         enableCircleMask={true}
                         deepColor={[0.0, 0.0, 1]}     
                         highlightColor={[0.1, 0.2, 1]} 
