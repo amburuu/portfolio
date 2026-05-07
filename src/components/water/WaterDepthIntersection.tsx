@@ -16,7 +16,7 @@ export default function WaterDepthIntersection() {
       enabled: true,
       rippleColor: "#7cd8ff",
       rippleFreq: 3.5,
-      rippleSpeed: 1.5,
+      rippleSpeed: 5.5,
       rippleDecay: 1.2,
       rippleStart: 1.3,
       rippleDepth: 3.8,

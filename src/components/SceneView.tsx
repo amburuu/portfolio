@@ -19,8 +19,8 @@ export default function SceneView() {
 
     function CameraController() {
         useCamera({
-            minRadius: 12,
-            maxRadius: 48,
+            minRadius: 0,
+            maxRadius: 62,
             speed: 0.4,
             rotationSpeed: 2.5
         });

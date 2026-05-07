@@ -41,7 +41,7 @@ export default function WaterFloor({ deepOpacityOverride }: WaterFloorProps) {
     fadeDistance: 300,
     fadeStrength: 5,
     shoreDepth: 3.0,
-    blur: 0.05
+    blur: 0.02
   };
 
   const depthRT = useMemo(() => {
